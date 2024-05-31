@@ -38,7 +38,7 @@ const Profile = () => {
                                 <li>{"John Doe"}</li>
                             </ul>
                             &nbsp;
-                            <FiChevronDown className="hidden md:inline" />
+                            <FiChevronDown className="hidden lg:inline" />
                         </div>
                     </button>
                     <button className="invisible flex items-center text-sm lg:visible" onClick={() => ctx?.onToggleProfileSideBar()}>
