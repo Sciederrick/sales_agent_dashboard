@@ -21,11 +21,11 @@ type TypeLayoutProps = {
 const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
     const ctx = useContext(AppContext);
     return (
-        <div className="flex justify-between bg-[#EAF6FC]">
+        <div className="flex justify-between bg-[#FFF]">
             <nav
-                className={`min-h-screen min-w-[250px] py-4 ${
+                className={`min-h-screen min-w-[250px] py-4 z-20 ${
                     ctx?.showMobileNav
-                        ? "absolute inset-y-0 left-0 flex flex-col gap-4 bg-[#EAF6FC] w-2/3 lg:w-auto lg:static"
+                        ? "absolute inset-y-0 left-0 flex flex-col gap-4 bg-[#FFF] w-2/3 lg:w-auto lg:static"
                         : "hidden"
                 } lg:flex lg:flex-col lg:gap-4`}
             >
@@ -78,15 +78,15 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                     </li>
                 </ul>
             </nav>
-            <main className="min-h-screen bg-[#D5EDF8] w-full lg:rounded-l-3xl">
+            <main className="min-h-screen bg-[#F6F6F6] w-full">
                 {children}
             </main>
             <aside
                 className={`min-h-screen absolute inset-0 bg-[#EAF6FC] ${
                     ctx?.showProfileSideBar
-                        ? "block lg:static lg:-ml-4 lg:min-w-[400px]"
+                        ? "block lg:static lg:min-w-[400px]"
                         : "hidden"
-                } lg:rounded-l-3xl`}
+                }`}
             >
                 <Profile />
             </aside>

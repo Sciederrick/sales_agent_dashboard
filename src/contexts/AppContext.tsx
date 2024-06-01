@@ -1,10 +1,13 @@
 import { ReactNode, createContext, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type TypeAppContext = {
     showMobileNav: boolean;
     onToggleMobileNav: () => void;
     showProfileSideBar: boolean;
     onToggleProfileSideBar: () => void;
+    onNotif: (msg:string) => void;
 };
 
 export const AppContext = createContext<TypeAppContext | undefined>(undefined);
@@ -24,6 +27,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         toggleProfileSideBar(!showProfileSideBar);
     };
 
+    const handleNotif = (msg:string) => {
+        toast(msg);
+    }
+
     return (
         <AppContext.Provider
             value={{
@@ -31,9 +38,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
                 showProfileSideBar,
                 onToggleMobileNav: handleToggleMobileNav,
                 onToggleProfileSideBar: handleToggleProfileSideBar,
+                onNotif: handleNotif
             }}
         >
             {children}
+            <ToastContainer />
         </AppContext.Provider>
     );
 };
