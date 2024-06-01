@@ -1,0 +1,32 @@
+[
+    {
+        "id": "javascript",
+        "label": "javascript",
+        "value": 29,
+        "color": "hsl(90, 70%, 50%)"
+    },
+    {
+        "id": "python",
+        "label": "python",
+        "value": 25,
+        "color": "hsl(56, 70%, 50%)"
+    },
+    {
+        "id": "java",
+        "label": "java",
+        "value": 20,
+        "color": "hsl(103, 70%, 50%)"
+    },
+    {
+        "id": "go",
+        "label": "go",
+        "value": 15,
+        "color": "hsl(186, 70%, 50%)"
+    },
+    {
+        "id": "ruby",
+        "label": "ruby",
+        "value": 11,
+        "color": "hsl(104, 70%, 50%)"
+    }
+]
