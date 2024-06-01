@@ -5,16 +5,6 @@ import Card from "./Card";
 import { AppContext } from "../contexts/AppContext";
 import { API_BASE_URL } from "../constants";
 
-type TypeCollection = {
-    id: number;
-    invoice_id: number;
-    collection_number: string;
-    collection_date: string;
-    amount: number;
-    status: string;
-    payment_method: string;
-};
-
 const CardCollections = () => {
     const [numCollections, setNumCollections] = useState<number | null>(null);
     const ctx = useContext(AppContext);
