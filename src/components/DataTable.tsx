@@ -41,8 +41,8 @@ const DataTable = ({ columns, rows }: Props) => {
     };
 
     return (
-        <Paper sx={{ width: "100%", overflow: "hidden" }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
+        <Paper sx={{ width: "100%", overflow: "hidden", borderRadius: 3, padding: 2 }}>
+            <TableContainer sx={{ maxHeight: 440, height: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>

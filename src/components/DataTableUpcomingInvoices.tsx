@@ -135,10 +135,7 @@ const UpcomingInvoices = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Upcoming Invoices</h1>
-            <DataTable columns={columns} rows={rows??[]} />
-        </div>
+        <DataTable columns={columns} rows={rows ?? []} />
     );
 }
 

@@ -19,6 +19,7 @@ import { API_BASE_URL } from "../constants";
 import BarGraph from "../components/BarGraph";
 import DataTable from "../components/DataTable";
 import DataTableUpcomingInvoices from "../components/DataTableUpcomingInvoices";
+import HeaderDesc from "../components/HeaderDesc";
 
 type TypePieData = {
     id: string;
@@ -165,15 +166,29 @@ const Overview = () => {
                 </button>
             </header>
             <main>
-                <div className="grid gap-4 py-4 px-8 md:grid-cols-2 lg:gap-x-8 lg:pt-8 lg:px-12 lg:grid-cols-4">
-                    <CardCollections />
-                    <CardSignups />
-                    <CardTotalRevenue />
-                    <CardBouncedCheques />
+                <div className=" py-4 px-8 lg:pt-8 lg:px-12">
+                    <HeaderDesc
+                        title={"Top Card Metrics"}
+                        desc={
+                            "Overview of vital sales and collections performance indicators"
+                        }
+                    />
+                    <div className="grid gap-4 md:grid-cols-2 lg:gap-x-8  lg:grid-cols-4">
+                        <CardCollections />
+                        <CardSignups />
+                        <CardTotalRevenue />
+                        <CardBouncedCheques />
+                    </div>
                 </div>
 
                 <div className="px-8 flex flex-col gap-4 lg:py-4 lg:px-12">
                     <div className="flex flex-col flex-wrap mb-4 w-full overflow-hidden">
+                        <HeaderDesc
+                            title={"Signups Overview"}
+                            desc={
+                                "Breakdown of new user registrations per product"
+                            }
+                        />
                         <div className="bg-white rounded-xl shadow overflow-auto w-full">
                             <div className="min-w-[650px] h-[500px]">
                                 <BarGraph />
@@ -181,25 +196,39 @@ const Overview = () => {
                         </div>
                     </div>
 
-                    <ul className="flex flex-col justify-between gap-4 mb-4 lg:flex-row">
-                        {Object.keys(pieData).map((key) => {
-                            return (
-                                <li
-                                    className="block w-full h-[500px] bg-white rounded-xl shadow"
-                                    key={key}
-                                >
-                                    <div className="pt-4">
-                                        <h2 className="text-center text-gray-500 font-semibold">
-                                            {key}
-                                        </h2>
-                                    </div>
-                                    <PieChart data={pieData[key]} />
-                                </li>
-                            );
-                        })}
-                    </ul>
+                    <div>
+                        <HeaderDesc
+                            title={"Targets Visualization"}
+                            desc={
+                                "Progress towards signup targets for Zeraki's products: Zeraki Analytics, Zeraki Finance, and Zeraki Timetable"
+                            }
+                        />
+                        <ul className="flex flex-col justify-between gap-4 mb-4 lg:flex-row">
+                            {Object.keys(pieData).map((key) => {
+                                return (
+                                    <li
+                                        className="block w-full h-[500px] bg-white rounded-xl shadow"
+                                        key={key}
+                                    >
+                                        <div className="pt-4">
+                                            <h2 className="text-center text-gray-500 font-semibold">
+                                                {key}
+                                            </h2>
+                                        </div>
+                                        <PieChart data={pieData[key]} />
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
 
                     <div>
+                        <HeaderDesc
+                            title={"Upcoming Invoices"}
+                            desc={
+                                "Keep track of pending payments, due dates, and outstanding balances"
+                            }
+                        />
                         <DataTableUpcomingInvoices />
                     </div>
                 </div>
