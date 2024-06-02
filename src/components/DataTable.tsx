@@ -29,7 +29,7 @@ const DataTable = ({ columns, rows }: Props) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const handleChangePage = (newPage: number) => {
+    const handleChangePage = (_event: unknown, newPage: number) => {
         setPage(newPage);
     };
 
@@ -69,7 +69,7 @@ const DataTable = ({ columns, rows }: Props) => {
                                         hover
                                         role="checkbox"
                                         tabIndex={-1}
-                                        key={row.code}
+                                        key={row.id}
                                     >
                                         {columns.map((column) => {
                                             const value = row[column.id];

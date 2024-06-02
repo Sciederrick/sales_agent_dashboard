@@ -73,6 +73,7 @@ const UpcomingInvoices = () => {
     }
 
     type TypeUpcomingInvoices = {
+        id: number;
         invoice_number: string;
         school_name: string;
         amount_due: number;
@@ -93,6 +94,7 @@ const UpcomingInvoices = () => {
 
         // Replace school_id with school name in each invoice
         return invoices.map((invoice) => ({
+            "id": invoice['id'],
             "invoice_number":invoice['invoice_number'],
             "school_name": invoiceMap.get(invoice.school_id)!,
             "amount_due": invoice['balance'],
