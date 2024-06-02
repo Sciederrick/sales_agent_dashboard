@@ -134,14 +134,18 @@ const Overview = () => {
    
     return (
         <DashboardLayout>
-            <header className="flex justify-between items-start pt-3 bg-[#FFF] px-4 lg:bg-transparent lg:justify-end">
+            <header className="relative flex justify-between items-start pt-3 bg-[#FFF] px-4 lg:bg-transparent lg:justify-end lg:border-b lg:pb-4">
                 <Link to="/" className="pb-6 lg:hidden">
                     <img src={logoIcon1} alt="company logo" className="h-8" />
                 </Link>
+                <div className="hidden lg:block lg:absolute lg:left-0 lg:pl-10">
+                    <HeaderDesc
+                        title={"Dashboard Overview"}
+                        desc={"Top metrics, signups overview, upcoming invoices"}
+                    />
+                </div>
                 <button
-                    className={`flex items-center lg:pr-8 ${
-                        ctx?.showProfileSideBar ? "block" : "block"
-                    }`}
+                    className={`flex items-center lg:pr-8`}
                     onClick={() => handleClickToggleProfileSideBar()}
                 >
                     <div className="rounded-full border border-[#36893A] p-[2px] lg:mr-1">
@@ -164,7 +168,7 @@ const Overview = () => {
                     <MdMenu size={40} color="#2C3539" />
                 </button>
             </header>
-            <main>
+            <main className="pb-32">
                 <div className=" py-4 px-8 lg:pt-8 lg:px-12">
                     <HeaderDesc
                         title={"Top Card Metrics"}

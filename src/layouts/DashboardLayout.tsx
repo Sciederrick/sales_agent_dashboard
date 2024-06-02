@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 
 import { AppContext } from "../contexts/AppContext";
@@ -12,6 +12,7 @@ import logoIcon1 from "./../assets/logo-1.png";
 import logoIcon2 from "./../assets/logo-2.png";
 
 import Profile from "../components/Profile";
+import { Chip } from "@mui/material";
 
 type TypeLayoutProps = {
     children: React.ReactNode;
@@ -19,16 +20,15 @@ type TypeLayoutProps = {
 
 const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
     const ctx = useContext(AppContext);
+    const navTransitionClasses = `transition duration-200 ease-in-out transform ${
+        ctx?.showMobileNav ? "-translate-x-0" : "-translate-x-full"
+    }`;
     return (
         <div className="relative flex justify-between bg-[#FFF]">
             <nav
-                className={`min-h-screen min-w-[250px] py-4 z-20 ${
-                    ctx?.showMobileNav
-                        ? "absolute inset-y-0 left-0 flex flex-col gap-4 bg-[#FFF] w-2/3 lg:w-auto lg:static"
-                        : "hidden"
-                } lg:flex lg:flex-col lg:gap-4 lg:h-screen lg:sticky lg:top-0 lg:overflow-y-auto`}
+                className={`min-h-screen min-w-[250px] py-4 z-20 absolute inset-y-0 left-0 flex flex-col gap-4 bg-[#FFF] w-2/3 lg:w-auto lg:static ${navTransitionClasses} lg:translate-x-0`}
             >
-                <Link to="/" className="pb-6 px-8">
+                <NavLink to="/" className="pb-6 px-8">
                     {ctx?.showMobileNav ? (
                         <img
                             src={logoIcon2}
@@ -49,30 +49,54 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                             />
                         </>
                     )}
-                </Link>
-                <Link to="/" className="pb-2 px-8 flex items-center">
+                </NavLink>
+                <NavLink
+                    to="/"
+                    className="py-1 px-8 flex items-center hover:bg-gray-100"
+                    style={({ isActive }) => {
+                        return isActive
+                            ? { background: "rgb(229, 231, 235)" }
+                            : {};
+                    }}
+                >
                     <MdOutlineDashboard />
-                    &nbsp; Dashboard
-                </Link>
-                <Link to="/" className="flex items-center pb-1 px-8">
+                    &nbsp; Dashboard Overview
+                </NavLink>
+                <NavLink
+                    title="under construction"
+                    to="/"
+                    className="flex items-center py-1 px-8 cursor-not-allowed opacity-40 hover:bg-gray-100"
+                >
                     <MdOutlineSchool />
-                    &nbsp; Schools&nbsp;
-                </Link>
-                <ul className="pl-6 flex flex-col gap-4 text-sm">
-                    <li>
-                        <Link to="/" className="pb-2 px-8">
+                    &nbsp; Schools&nbsp;&nbsp;<Chip size="small" label="coming soon" color="primary"/>
+                </NavLink>
+                <ul className="pl-6 flex flex-col gap-4 text-sm opacity-40">
+                    <li className="flex w-full">
+                        <NavLink
+                            title="under construction"
+                            to="/"
+                            className="py-1 px-8 w-full cursor-not-allowed hover:bg-gray-100"
+                        >
                             View Schools
-                        </Link>
+                        </NavLink>
                     </li>
-                    <li>
-                        <Link to="/" className="pb-2 px-8">
+                    <li className="flex w-full">
+                        <NavLink
+                            title="under construction"
+                            to="/"
+                            className="py-1 px-8 w-full cursor-not-allowed hover:bg-gray-100"
+                        >
                             Invoices
-                        </Link>
+                        </NavLink>
                     </li>
-                    <li>
-                        <Link to="/" className="pb-2 px-8">
+                    <li className="flex w-full">
+                        <NavLink
+                            title="under construction"
+                            to="/"
+                            className="py-1 px-8 w-full cursor-not-allowed hover:bg-gray-100"
+                        >
                             Collections
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
