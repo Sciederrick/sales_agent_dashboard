@@ -11,7 +11,7 @@ import {
 import logoIcon1 from "./../assets/logo-1.png";
 import logoIcon2 from "./../assets/logo-2.png";
 
-import Profile from "../components/Profile";
+// import Profile from "../components/Profile";
 
 type TypeLayoutProps = {
     children: React.ReactNode;

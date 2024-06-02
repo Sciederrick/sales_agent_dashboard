@@ -17,7 +17,7 @@ import CardBouncedCheques from "../components/CardBouncedCheques";
 
 import { API_BASE_URL } from "../constants";
 import BarGraph from "../components/BarGraph";
-import DataTable from "../components/DataTable";
+// import DataTable from "../components/DataTable";
 import DataTableUpcomingInvoices from "../components/DataTableUpcomingInvoices";
 import HeaderDesc from "../components/HeaderDesc";
 
