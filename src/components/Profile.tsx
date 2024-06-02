@@ -1,6 +1,5 @@
 import { useContext } from "react";
 
-import { FiChevronDown } from "react-icons/fi";
 import { MdChevronLeft, MdOutlineCancel } from "react-icons/md";
 
 import avatar from "./../assets/profile.webp";
