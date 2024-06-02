@@ -11,7 +11,7 @@ import {
 import logoIcon1 from "./../assets/logo-1.png";
 import logoIcon2 from "./../assets/logo-2.png";
 
-// import Profile from "../components/Profile";
+import Profile from "../components/Profile";
 
 type TypeLayoutProps = {
     children: React.ReactNode;
@@ -20,7 +20,7 @@ type TypeLayoutProps = {
 const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
     const ctx = useContext(AppContext);
     return (
-        <div className="flex justify-between bg-[#FFF]">
+        <div className="relative flex justify-between bg-[#FFF]">
             <nav
                 className={`min-h-screen min-w-[250px] py-4 z-20 ${
                     ctx?.showMobileNav
@@ -52,13 +52,13 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                 </Link>
                 <Link to="/" className="pb-2 px-8 flex items-center">
                     <MdOutlineDashboard />
-                    &nbsp; Overview
+                    &nbsp; Dashboard
                 </Link>
-                <Link to="/" className="flex items-center pb-2 px-8">
+                <Link to="/" className="flex items-center pb-1 px-8">
                     <MdOutlineSchool />
                     &nbsp; Schools&nbsp;
                 </Link>
-                <ul className="pl-6 flex flex-col gap-4">
+                <ul className="pl-6 flex flex-col gap-4 text-sm">
                     <li>
                         <Link to="/" className="pb-2 px-8">
                             View Schools
@@ -77,15 +77,15 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                 </ul>
             </nav>
             <main className="min-h-screen bg-[#F6F6F6] w-full">{children}</main>
-            {/* <aside
+            <aside
                 className={`min-h-screen absolute inset-0 bg-[#EAF6FC] ${
                     ctx?.showProfileSideBar
-                        ? "block lg:static lg:min-w-[400px]"
+                        ? "block lg:w-[400px] lg:inset-auto lg:right-0 lg:inset-y-0"
                         : "hidden"
                 }`}
             >
                 <Profile />
-            </aside> */}
+            </aside>
         </div>
     );
 };

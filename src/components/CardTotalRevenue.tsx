@@ -72,7 +72,6 @@ const CardCollections = () => {
                         return collection.status == 'Valid';
                     }
                 );
-                console.log("🚀 ~ fetchData ~ filteredCollections:", filteredCollections)
                 const invoiceIds: number[] = filteredCollections.map((collection: TypeCollection) => {
                     return collection['invoice_id'];
                 });

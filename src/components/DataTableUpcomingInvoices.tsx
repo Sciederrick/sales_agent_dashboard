@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import DataTable from "./DataTable";
 import { API_BASE_URL } from "../constants";
 import { AppContext } from "../contexts/AppContext";
@@ -14,7 +14,6 @@ type Column = {
 type Row = {
     [key: string]: any;
 };
-
 const UpcomingInvoices = () => {
     const ctx = useContext(AppContext)
     const columns:Column[] = [
@@ -24,26 +23,25 @@ const UpcomingInvoices = () => {
             id: "amount_due",
             label: "Amount Due",
             minWidth: 170,
-            align: "right",
-            // format: (value: number) => value.toLocaleString("en-US"),
         },
         {
             id: "due_date",
             label: "Due Date",
             minWidth: 170,
-            align: "right",
-            // format: (value: number) => value.toLocaleString("en-US"),
         },
         {
             id: "status",
             label: "Status",
             minWidth: 170,
-            align: "right",
-            // format: (value: number) => value.toFixed(2),
         },
+        {
+            id: "actions-collect",
+            label: "Actions",
+            minWidth: 170
+        }
     ];
 
-    const [rows, setRows] = useState<Row[]>()
+    const [rows, setRows] = useState<Row[]>([])
 
     type TypeInvoice = {
         id: number;
@@ -76,7 +74,7 @@ const UpcomingInvoices = () => {
         id: number;
         invoice_number: string;
         school_name: string;
-        amount_due: number;
+        balance: number;
         due_date: string;
         status: string;
     };
@@ -94,14 +92,27 @@ const UpcomingInvoices = () => {
 
         // Replace school_id with school name in each invoice
         return invoices.map((invoice) => ({
-            "id": invoice['id'],
-            "invoice_number":invoice['invoice_number'],
+            // "id": invoice['id'],
+            // "invoice_number":invoice['invoice_number'],
+            ...invoice,
             "school_name": invoiceMap.get(invoice.school_id)!,
-            "amount_due": invoice['balance'],
-            "due_date": invoice['due_date'],
-            "status": invoice['status']
+            // "amount_due": invoice['balance'],
+            // "due_date": invoice['due_date'],
+            // "status": invoice['status'],
+            // "paid_amount": invoice['paid_amount'],
+            // "balance": invoice['balance']
         }));
     }
+
+    const ascUpcomingInvoices = useMemo(() => {
+        // Sort the data based on collection_date
+        const sorted = [...rows].sort((a, b) => {
+            const dateA = new Date(a.due_date);
+            const dateB = new Date(b.due_date);
+            return dateA.getTime() - dateB.getTime();
+        });
+        return sorted;
+    }, [rows]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -136,9 +147,7 @@ const UpcomingInvoices = () => {
         fetchData();
     }, []);
 
-    return (
-        <DataTable columns={columns} rows={rows ?? []} />
-    );
+    return <DataTable columns={columns} rows={ascUpcomingInvoices ?? []} />;
 }
 
 export default UpcomingInvoices;
