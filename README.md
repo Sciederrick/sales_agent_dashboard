@@ -25,6 +25,7 @@ Mobile-first Responsive Design:
 - The Title and Descriptions before the visuals gives inexperienced users context as to what they are seeing on the screen.
 - The Typography consists of a single font [Inter](https://fonts.google.com/specimen/Inter) which brings personality to the UI. It is also ranks among the most readable fonts making it perfect for a busy screen like my dashboard.
 - I opted to utilize our brand colors sparingly, strategically incorporating light shades of red and blue as accent colors throughout the interface. These accent hues serve as subtle highlights that punctuate key elements, effectively drawing attention to critical components without overwhelming the overall visual balance. By employing a restrained application of our brand colors, I aimed to maintain a cohesive and harmonious aesthetic, ensuring that the interface remains visually appealing and user-friendly. This approach allows the primary content to take center stage while subtly reinforcing our brand identity through thoughtfully placed accents, creating a memorable and cohesive user experience. Example usage includes: the "coming soon" Chip component; border color of the avatar image; action buttons on the data table; background color for the profile section.
+- I used a mobile-first approach to allow sales agent to track their metrics on the go so that they focus on selling. This meant I sacrifice speed for a quality responsive product that is highly portable. 
 
 
 ## Installation steps:
@@ -57,6 +58,6 @@ Mobile-first Responsive Design:
 
 ## Links 
 - [Frontend](https://sales-agent-dashboard-demo.vercel.app/)
-- [Backend] (https://sales-agent-dashboard-mock-server.vercel.app/)
+- [Backend](https://sales-agent-dashboard-mock-server.vercel.app/)
 
 
