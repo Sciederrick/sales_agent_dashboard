@@ -17,6 +17,8 @@ import CardBouncedCheques from "../components/CardBouncedCheques";
 
 import { API_BASE_URL } from "../constants";
 import BarGraph from "../components/BarGraph";
+import DataTable from "../components/DataTable";
+import DataTableUpcomingInvoices from "../components/DataTableUpcomingInvoices";
 
 type TypePieData = {
     id: string;
@@ -179,11 +181,11 @@ const Overview = () => {
                         </div>
                     </div>
 
-                    <ul className="flex flex-col justify-between gap-4 lg:flex-row">
+                    <ul className="flex flex-col justify-between gap-4 mb-4 lg:flex-row">
                         {Object.keys(pieData).map((key) => {
                             return (
                                 <li
-                                    className="block w-full h-[500px] bg-white rounded-xl shadow lg:shadow-none"
+                                    className="block w-full h-[500px] bg-white rounded-xl shadow"
                                     key={key}
                                 >
                                     <div className="pt-4">
@@ -196,6 +198,10 @@ const Overview = () => {
                             );
                         })}
                     </ul>
+
+                    <div>
+                        <DataTableUpcomingInvoices />
+                    </div>
                 </div>
             </main>
         </DashboardLayout>
