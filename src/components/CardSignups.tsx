@@ -28,10 +28,11 @@ type TypeProducts = {
   "Zeraki Finance": null|number;
   "Zeraki Timetable": null|number;
 };
+type TypeSignupsPerProduct = { [key: string]: number };
 
 const CardSignups = () => {
     const [numSchools, setNumSchools] = useState<number | null>(null);
-    const [productCounts, setProductCounts] = useState<TypeProducts>({
+    const [signupsPerProduct, setSignupsPerProduct] = useState<TypeProducts>({
         "Zeraki Analytics": null,
         "Zeraki Finance": null,
         "Zeraki Timetable": null,
@@ -63,7 +64,8 @@ const CardSignups = () => {
                     });
                 });
 
-                setProductCounts(productCounts as TypeProducts);
+                setSignupsPerProduct(productCounts as TypeProducts);
+                ctx?.onSetSignupsPerProduct(productCounts as TypeSignupsPerProduct);
             } catch (error) {
                 ctx?.onNotif(`Loading signups failed with error: ${error}`);
             }
@@ -78,7 +80,7 @@ const CardSignups = () => {
             stats={numSchools}
             isDetails={true}
             isCurrency={false}
-            details={productCounts}
+            details={signupsPerProduct}
         />
     );
 };

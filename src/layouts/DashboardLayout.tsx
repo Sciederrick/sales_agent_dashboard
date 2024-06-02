@@ -7,7 +7,6 @@ import {
     MdOutlineDashboard,
     MdOutlineSchool,
 } from "react-icons/md";
-import { FiChevronDown } from "react-icons/fi";
 
 import logoIcon1 from "./../assets/logo-1.png";
 import logoIcon2 from "./../assets/logo-2.png";
@@ -27,7 +26,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                     ctx?.showMobileNav
                         ? "absolute inset-y-0 left-0 flex flex-col gap-4 bg-[#FFF] w-2/3 lg:w-auto lg:static"
                         : "hidden"
-                } lg:flex lg:flex-col lg:gap-4`}
+                } lg:flex lg:flex-col lg:gap-4 lg:h-screen lg:sticky lg:top-0 lg:overflow-y-auto`}
             >
                 <Link to="/" className="pb-6 px-8">
                     {ctx?.showMobileNav ? (
@@ -58,7 +57,6 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                 <Link to="/" className="flex items-center pb-2 px-8">
                     <MdOutlineSchool />
                     &nbsp; Schools&nbsp;
-                    <FiChevronDown />
                 </Link>
                 <ul className="pl-6 flex flex-col gap-4">
                     <li>
@@ -78,10 +76,8 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                     </li>
                 </ul>
             </nav>
-            <main className="min-h-screen bg-[#F6F6F6] w-full">
-                {children}
-            </main>
-            <aside
+            <main className="min-h-screen bg-[#F6F6F6] w-full">{children}</main>
+            {/* <aside
                 className={`min-h-screen absolute inset-0 bg-[#EAF6FC] ${
                     ctx?.showProfileSideBar
                         ? "block lg:static lg:min-w-[400px]"
@@ -89,7 +85,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                 }`}
             >
                 <Profile />
-            </aside>
+            </aside> */}
         </div>
     );
 };

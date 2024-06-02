@@ -19,8 +19,8 @@ const Card: React.FC<TypeLayoutProps> = ({
         <div className="bg-[#FFF] rounded-xl p-4 w-full shadow lg:p-6">
             <div className="flex justify-between pb-4">
                 <div>
-                    <h2 className="text-xs pb-2 text-gray-500">{title}</h2>
-                    <p className="text-xl font-medium">
+                    <h2 className="text-xs pb-2 text-gray-500">{title}&nbsp;</h2>
+                    <p className="text-xl font-medium h-[32px]">
                         {stats ? (
                             <>
                                 {isCurrency
@@ -34,7 +34,7 @@ const Card: React.FC<TypeLayoutProps> = ({
                                         maximumFractionDigits: 0,
                                     }).format(stats)}
                             </>
-                        ):(null)}
+                        ):(null)}&nbsp;
                     </p>
                 </div>
                 <div className="text-gray-400">{icon}</div>
