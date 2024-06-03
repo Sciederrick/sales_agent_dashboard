@@ -21,16 +21,12 @@ const DropdownButton = () => {
     };
 
     const handleGoToInvoices = () => {
-        console.log(e.target)
         // navigate("/")
-        e.stopPropagation();
         handleClose();
     };
     
     const handleGoToCollections = () => {
-        console.log(e.target)
         // navigate("/");
-        e.stopPropagation();
         handleClose();  
     };
 
