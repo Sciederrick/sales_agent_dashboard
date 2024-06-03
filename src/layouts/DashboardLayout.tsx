@@ -65,17 +65,17 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                 <NavLink
                     title="under construction"
                     to="/manage"
-                    className="flex items-center py-1 px-8 cursor-not-allowed opacity-40 hover:bg-gray-100"
+                    className="flex items-center py-1 px-8 hover:bg-gray-100"
                 >
                     <MdOutlineSchool />
-                    &nbsp; Schools&nbsp;&nbsp;<Chip size="small" label="coming soon" color="primary"/>
+                    &nbsp; Schools
                 </NavLink>
-                <ul className="pl-6 flex flex-col gap-4 text-sm opacity-40">
+                <ul className="pl-6 flex flex-col gap-4 text-sm">
                     <li className="flex w-full">
                         <NavLink
                             title="under construction"
                             to="/"
-                            className="py-1 px-8 w-full cursor-not-allowed hover:bg-gray-100"
+                            className="py-1 px-8 w-full hover:bg-gray-100"
                         >
                             View Schools
                         </NavLink>
@@ -84,18 +84,28 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                         <NavLink
                             title="under construction"
                             to="/"
-                            className="py-1 px-8 w-full cursor-not-allowed hover:bg-gray-100"
+                            className="py-1 px-8 w-full cursor-not-allowed opacity-40 flex hover:bg-gray-100"
                         >
-                            Invoices
+                            Invoices&nbsp;&nbsp;
+                            <Chip
+                                size="small"
+                                label="coming soon"
+                                color="primary"
+                            />
                         </NavLink>
                     </li>
                     <li className="flex w-full">
                         <NavLink
                             title="under construction"
                             to="/"
-                            className="py-1 px-8 w-full cursor-not-allowed hover:bg-gray-100"
+                            className="py-1 px-8 w-full cursor-not-allowed opacity-40 flex hover:bg-gray-100"
                         >
-                            Collections
+                            Collections&nbsp;&nbsp;
+                            <Chip
+                                size="small"
+                                label="coming soon"
+                                color="primary"
+                            />
                         </NavLink>
                     </li>
                 </ul>
