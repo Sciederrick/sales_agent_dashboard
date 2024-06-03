@@ -64,7 +64,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                 </NavLink>
                 <NavLink
                     title="under construction"
-                    to="/"
+                    to="/manage"
                     className="flex items-center py-1 px-8 cursor-not-allowed opacity-40 hover:bg-gray-100"
                 >
                     <MdOutlineSchool />

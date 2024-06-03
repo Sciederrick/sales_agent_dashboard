@@ -12,6 +12,8 @@ import { useContext, useState } from "react";
 import DialogForm from "./DialogForm";
 import { API_BASE_URL } from "../constants";
 import { AppContext } from "../contexts/AppContext";
+import { useNavigate } from "react-router-dom";
+import ButtonWithDropdown from "./ButtonWithDropdown";
 
 type Column = {
     id: string;
@@ -42,6 +44,13 @@ type Props = {
 
 enum TypeActions {
     Collect = "Collect",
+    SchoolDetails = "SchoolDetails"
+}
+
+enum Products {
+    "Zeraki Analytics"="Zeraki Analytics",
+    "Zeraki Finance"="Zeraki Finance",
+    "Zeraki Timetable"="Zeraki Timetable"
 }
 
 type TypeHandleClickAction = (type: TypeActions, row: Row) => void;
@@ -62,11 +71,18 @@ const DataTable = ({ columns, rows }: Props) => {
         setPage(0);
     };
 
+    const navigate = useNavigate();
+    const handleNavigate = () => {
+        navigate('') // TODO: got to schools details
+    };
+
     const [activeRow, setActiveRow] = useState<Row>({});
     const handleActionClick = (type: TypeActions, row: Row) => {
+        setActiveRow(row);
         if (type === TypeActions.Collect) {
-            setActiveRow(row);
             handleToggleCollectionForm();
+        } else if (type === TypeActions.SchoolDetails) {
+            handleNavigate();
         }
     };
 
@@ -236,7 +252,7 @@ const DataTable = ({ columns, rows }: Props) => {
                     size="small"
                     onClick={() => handleActionClick(TypeActions.Collect, row)}
                 >
-                    Collect Payment
+                    Collect&nbsp;Payment
                 </Button>
             );
         } else if (column.id === "status") {
@@ -247,6 +263,27 @@ const DataTable = ({ columns, rows }: Props) => {
                     size="small"
                     color={value === "Pending" ? "default" : "primary"}
                 />
+            );
+        } else if (column.id === "products") {
+            const productsArr = (value as string).split(',');
+            return productsArr.map((product) => {
+                product = product.trim();
+                return (
+                    <Chip
+                        key={product}
+                        className="mb-2 mr-2"
+                        label={product}
+                        variant="outlined"
+                        size="small"
+                        color={
+                            product === Products["Zeraki Analytics"] ? "primary" : (product === Products["Zeraki Finance"] ? "secondary" : "default")
+                        }
+                    />
+                );
+            });            
+        } else if (column.id === "actions-school-details") {
+            return (
+                <ButtonWithDropdown />
             );
         } else {
             return column.format && typeof value === "number"
@@ -265,7 +302,7 @@ const DataTable = ({ columns, rows }: Props) => {
                     padding: 2,
                 }}
             >
-                <TableContainer sx={{ maxHeight: 480, height: 480 }}>
+                <TableContainer sx={{ maxHeight: 720, height: 720 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>

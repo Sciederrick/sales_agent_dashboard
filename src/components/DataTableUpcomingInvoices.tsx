@@ -92,15 +92,9 @@ const UpcomingInvoices = () => {
 
         // Replace school_id with school name in each invoice
         return invoices.map((invoice) => ({
-            // "id": invoice['id'],
-            // "invoice_number":invoice['invoice_number'],
             ...invoice,
             "school_name": invoiceMap.get(invoice.school_id)!,
-            // "amount_due": invoice['balance'],
-            // "due_date": invoice['due_date'],
-            // "status": invoice['status'],
-            // "paid_amount": invoice['paid_amount'],
-            // "balance": invoice['balance']
+
         }));
     }
 

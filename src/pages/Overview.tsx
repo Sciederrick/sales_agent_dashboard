@@ -19,6 +19,7 @@ import { API_BASE_URL } from "../constants";
 import BarGraph from "../components/BarGraph";
 import DataTableUpcomingInvoices from "../components/DataTableUpcomingInvoices";
 import HeaderDesc from "../components/HeaderDesc";
+import Header from "../components/TheHeader";
 
 type TypePieData = {
     id: string;
@@ -134,40 +135,12 @@ const Overview = () => {
    
     return (
         <DashboardLayout>
-            <header className="relative flex justify-between items-start pt-3 bg-[#FFF] px-4 lg:bg-transparent lg:justify-end lg:border-b lg:pb-4">
-                <Link to="/" className="pb-6 lg:hidden">
-                    <img src={logoIcon1} alt="company logo" className="h-8" />
-                </Link>
-                <div className="hidden lg:block lg:absolute lg:left-0 lg:pl-10">
-                    <HeaderDesc
-                        title={"Dashboard Overview"}
-                        desc={"Top metrics, signups overview, upcoming invoices"}
-                    />
-                </div>
-                <button
-                    className={`flex items-center lg:pr-8`}
-                    onClick={() => handleClickToggleProfileSideBar()}
-                >
-                    <div className="rounded-full border border-[#36893A] p-[2px] lg:mr-1">
-                        <img
-                            src={avatar}
-                            alt="user avatar"
-                            className="h-9 w-9 rounded-full object-cover border border-[#36893A] lg:h-8 lg:w-8"
-                        />
-                    </div>
-                    <div className="hidden lg:flex lg:items-center">
-                        &nbsp;
-                        {"Derrick Mbarani"}
-                        &nbsp;
-                    </div>
-                </button>
-                <button
-                    onClick={() => handleClickToggleNav()}
-                    className="lg:hidden"
-                >
-                    <MdMenu size={40} color="#2C3539" />
-                </button>
-            </header>
+            <Header
+                title="Dashboard Overview"
+                description="Top metrics, signups overview, upcoming invoices"
+                onToggleProfileSidebar={handleClickToggleProfileSideBar}
+                onToggleNav={handleClickToggleNav}
+            />
             <main className="pb-32">
                 <div className=" py-4 px-8 lg:pt-8 lg:px-12">
                     <HeaderDesc
