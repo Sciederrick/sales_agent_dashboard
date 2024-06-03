@@ -1,13 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { MdMenu } from "react-icons/md";
 
 import DashboardLayout from "../layouts/DashboardLayout";
 
 import { AppContext } from "../contexts/AppContext";
-
-import logoIcon1 from "./../assets/logo-1.png";
-import avatar from "./../assets/profile.webp";
 
 import PieChart from "../components/PieChart";
 import CardCollections from "../components/CardCollections";
