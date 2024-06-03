@@ -66,6 +66,11 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                     title="under construction"
                     to="/manage"
                     className="flex items-center py-1 px-8 hover:bg-gray-100"
+                    style={({ isActive }) => {
+                        return isActive
+                            ? { background: "rgb(229, 231, 235)" }
+                            : {};
+                    }}
                 >
                     <MdOutlineSchool />
                     &nbsp; Schools
@@ -74,8 +79,13 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                     <li className="flex w-full">
                         <NavLink
                             title="under construction"
-                            to="/"
+                            to="/manage"
                             className="py-1 px-8 w-full hover:bg-gray-100"
+                            style={({ isActive }) => {
+                                return isActive
+                                    ? { background: "rgb(241, 243, 247)" }
+                                    : {};
+                            }}
                         >
                             View Schools
                         </NavLink>
