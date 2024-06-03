@@ -3,11 +3,16 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { MdArrowDropDown } from "react-icons/md";
+// import { useNavigate } from "react-router-dom";
+
 
 const DropdownButton = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    
+    // const navigate = useNavigate();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        // navigate("/")
         setAnchorEl(event.currentTarget);
     };
 
@@ -15,23 +20,45 @@ const DropdownButton = () => {
         setAnchorEl(null);
     };
 
+    const handleGoToInvoices = () => {
+        console.log(e.target)
+        // navigate("/")
+        e.stopPropagation();
+        handleClose();
+    };
+    
+    const handleGoToCollections = () => {
+        console.log(e.target)
+        // navigate("/");
+        e.stopPropagation();
+        handleClose();  
+    };
+
     return (
-        <div>
+        <div className="flex gap-16">
             <Button
+                id="btn-details"
                 variant="contained"
+                size="small"
                 color="primary"
                 endIcon={<MdArrowDropDown />}
                 onClick={handleClick}
             >
                 View&nbsp;Details
             </Button>
-            <Menu
+            <Menu                
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>View School Invoices</MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem
+                    onClick={handleGoToInvoices}
+                >
+                    View School Invoices
+                </MenuItem>
+                <MenuItem
+                    onClick={handleGoToCollections}
+                >
                     View School Collections
                 </MenuItem>
             </Menu>

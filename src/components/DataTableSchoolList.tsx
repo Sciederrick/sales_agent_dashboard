@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import DataTable from "./DataTable";
 import { API_BASE_URL } from "../constants";
 import { AppContext } from "../contexts/AppContext";
+import { useNavigate } from "react-router-dom";
 
 type Column = {
     id: string;
@@ -14,6 +15,12 @@ type Column = {
 type Row = {
     [key: string]: any;
 };
+
+enum TypeActions {
+    Collect = "Collect",
+    SchoolDetails = "SchoolDetails",
+}
+
 const SchoolList = () => {
     const ctx = useContext(AppContext);
     const columns: Column[] = [
@@ -53,19 +60,23 @@ const SchoolList = () => {
 
     const [rows, setRows] = useState<Row[]>([]);
 
+    const navigate = useNavigate();
+    const handleActionClick = (type: TypeActions) => {
+        if (type === TypeActions.SchoolDetails) {
+            navigate("/");
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(
-                    `${API_BASE_URL}/schools`
-                );
+                const response = await fetch(`${API_BASE_URL}/schools`);
 
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
                 const schools = await response.json();
                 setRows(schools);
-
             } catch (error) {
                 ctx?.onNotif(`Loading collections failed with error: ${error}`);
             }
@@ -74,7 +85,13 @@ const SchoolList = () => {
         fetchData();
     }, []);
 
-    return <DataTable columns={columns} rows={rows ?? []} />;
+    return (
+        <DataTable
+            columns={columns}
+            rows={rows ?? []}
+            onActionClick={handleActionClick}
+        />
+    );
 };
 
 export default SchoolList;

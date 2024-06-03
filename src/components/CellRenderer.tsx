@@ -7,7 +7,7 @@ import {
     TypeActions,
     TypeHandleClickAction,
 } from "../types";
-import ButtonWithDropdown from "./ButtonWithDropdown";
+import ButtonWithDropdown from "./UpcomingInvoicesButtonWithDropdown";
 
 type Props = {
     column: Column;

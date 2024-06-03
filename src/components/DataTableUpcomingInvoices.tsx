@@ -2,6 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import DataTable from "./DataTable";
 import { API_BASE_URL } from "../constants";
 import { AppContext } from "../contexts/AppContext";
+import DialogFormUpcomingInvoices from "./DialogFormUpcomingInvoices";
 
 type Column = {
     id: string;
@@ -14,9 +15,51 @@ type Column = {
 type Row = {
     [key: string]: any;
 };
+
+type TypeInvoice = {
+    id: number;
+    school_id: number;
+    invoice_number: string;
+    item: string;
+    creation_date: string;
+    due_date: string;
+    amount: number;
+    paid_amount: number;
+    balance: number;
+    status: string;
+    days_until_due: number;
+};
+
+type TypeSchool = {
+    id: number;
+    name: string;
+    type: string;
+    county: string;
+    registration_date: string;
+    contact_name: string;
+    contact_email: string;
+    contact_phone: string;
+    products: string;
+    balance: number;
+};
+
+type TypeUpcomingInvoices = {
+    id: number;
+    invoice_number: string;
+    school_name: string;
+    balance: number;
+    due_date: string;
+    status: string;
+};
+
+enum TypeActions {
+    Collect = "Collect",
+    SchoolDetails = "SchoolDetails",
+}
+
 const UpcomingInvoices = () => {
-    const ctx = useContext(AppContext)
-    const columns:Column[] = [
+    const ctx = useContext(AppContext);
+    const columns: Column[] = [
         { id: "invoice_number", label: "Invoice Number", minWidth: 170 },
         { id: "school_name", label: "School Name", minWidth: 100 },
         {
@@ -37,47 +80,11 @@ const UpcomingInvoices = () => {
         {
             id: "actions-collect",
             label: "Actions",
-            minWidth: 170
-        }
+            minWidth: 170,
+        },
     ];
 
-    const [rows, setRows] = useState<Row[]>([])
-
-    type TypeInvoice = {
-        id: number;
-        school_id: number;
-        invoice_number: string;
-        item: string;
-        creation_date: string;
-        due_date: string;
-        amount: number;
-        paid_amount: number;
-        balance: number;
-        status: string;
-        days_until_due: number;
-    }
-
-    type TypeSchool = {
-        id: number;
-        name: string;
-        type: string;
-        county: string;
-        registration_date: string;
-        contact_name: string;
-        contact_email: string;
-        contact_phone: string;
-        products: string;
-        balance: number;
-    }
-
-    type TypeUpcomingInvoices = {
-        id: number;
-        invoice_number: string;
-        school_name: string;
-        balance: number;
-        due_date: string;
-        status: string;
-    };
+    const [rows, setRows] = useState<Row[]>([]);
 
     const replaceSchoolIdWithSchoolName = (
         invoices: TypeInvoice[],
@@ -93,10 +100,9 @@ const UpcomingInvoices = () => {
         // Replace school_id with school name in each invoice
         return invoices.map((invoice) => ({
             ...invoice,
-            "school_name": invoiceMap.get(invoice.school_id)!,
-
+            school_name: invoiceMap.get(invoice.school_id)!,
         }));
-    }
+    };
 
     const ascUpcomingInvoices = useMemo(() => {
         // Sort the data based on collection_date
@@ -107,6 +113,25 @@ const UpcomingInvoices = () => {
         });
         return sorted;
     }, [rows]);
+
+    const [showCollectionForm, setShowCollectionForm] = useState(false);
+
+    const handleToggleCollectionForm = () => {
+        setShowCollectionForm(!showCollectionForm);
+    };
+
+    const handleCloseCollectionForm = () => {
+        setShowCollectionForm(false);
+    };
+
+    const [activeRow, setActiveRow] = useState<Row>({});
+
+    const handleActionClick = (type: TypeActions, row: Row) => {
+        setActiveRow(row);
+        if (type === TypeActions.Collect) {
+            handleToggleCollectionForm();
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -119,29 +144,35 @@ const UpcomingInvoices = () => {
                 }
                 let upcomingInvoices = await response.json();
 
-                response = await fetch(
-                    `${API_BASE_URL}/schools`
-                );
+                response = await fetch(`${API_BASE_URL}/schools`);
                 if (!response.ok) {
-                    throw new Error(
-                        "Network response was not ok"
-                    );
-                }     
-                const schools = await response.json()           
-                upcomingInvoices = replaceSchoolIdWithSchoolName(upcomingInvoices, schools)
+                    throw new Error("Network response was not ok");
+                }
+                const schools = await response.json();
+                upcomingInvoices = replaceSchoolIdWithSchoolName(
+                    upcomingInvoices,
+                    schools
+                );
 
                 setRows(upcomingInvoices);
             } catch (error) {
-                ctx?.onNotif(
-                    `Loading collections failed with error: ${error}`
-                );
+                ctx?.onNotif(`Loading collections failed with error: ${error}`);
             }
         };
 
         fetchData();
     }, []);
 
-    return <DataTable columns={columns} rows={ascUpcomingInvoices ?? []} />;
-}
+    return (
+        <>
+            <DataTable
+                columns={columns}
+                rows={ascUpcomingInvoices ?? []}
+                onActionClick={handleActionClick}
+            />
+            <DialogFormUpcomingInvoices activeRow={activeRow} showCollectionForm={showCollectionForm} onCloseCollectionForm={handleCloseCollectionForm}/>
+        </>
+    );
+};
 
 export default UpcomingInvoices;
