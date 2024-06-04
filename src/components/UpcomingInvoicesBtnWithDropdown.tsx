@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { MdArrowDropDown } from "react-icons/md";
-// import { useNavigate } from "react-router-dom";
+import { AppContext } from "../contexts/AppContext";
 
+type TypeProps = {
+    onActionClick: (section: string) => void;
+};
 
-const DropdownButton = () => {
+const DropdownButton = ({ onActionClick }: TypeProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     
-    // const navigate = useNavigate();
+    const ctx = useContext(AppContext);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        // navigate("/")
         setAnchorEl(event.currentTarget);
     };
 
@@ -21,12 +23,14 @@ const DropdownButton = () => {
     };
 
     const handleGoToInvoices = () => {
-        // navigate("/")
+        ctx?.onSetActiveSchoolSection("invoices");
+        onActionClick("invoices");
         handleClose();
     };
     
     const handleGoToCollections = () => {
-        // navigate("/");
+        ctx?.onSetActiveSchoolSection("collections");
+        onActionClick("collections");
         handleClose();  
     };
 

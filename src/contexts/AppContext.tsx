@@ -11,6 +11,10 @@ type TypeAppContext = {
     onNotif: (msg: string) => void;
     signupsPerProduct: { [key: string]: number };
     onSetSignupsPerProduct: (signups: TypeSignupsPerProduct) => void;
+    activeSchool: number|null,
+    onSetActiveSchool: (id: number) => void;
+    activeSchoolSection: string|null,
+    onSetActiveSchoolSection: (route: string) => void;
 };
 
 export const AppContext = createContext<TypeAppContext | undefined>(undefined);
@@ -40,17 +44,31 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setSignupsPerProduct(signups);
     };
 
+    const [activeSchool, setActiveSchool] = useState<number|null>(null);
+
+    const handleSetActiveSchool = (id: number) => {
+        setActiveSchool(id);
+    };
+
+    const [activeSchoolSection, setActiveSchoolSection] = useState<string|null>(null);
+    const handleSetActiveSchoolSection = (route: string) => {
+        setActiveSchoolSection(route);
+    };
+
     return (
         <AppContext.Provider
             value={{
                 showMobileNav,
                 showProfileSideBar,
                 signupsPerProduct,
+                activeSchool,
+                activeSchoolSection,
                 onToggleMobileNav: handleToggleMobileNav,
                 onToggleProfileSideBar: handleToggleProfileSideBar,
                 onNotif: handleNotif,
-                onSetSignupsPerProduct: handleSetSignupsPerProduct
-
+                onSetSignupsPerProduct: handleSetSignupsPerProduct,
+                onSetActiveSchool: handleSetActiveSchool,
+                onSetActiveSchoolSection: handleSetActiveSchoolSection
             }}
         >
             {children}

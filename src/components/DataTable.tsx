@@ -11,7 +11,7 @@ import {
     Button,
     Chip,
 } from "@mui/material";
-import ButtonWithDropdown from "./UpcomingInvoicesButtonWithDropdown";
+import UpcomingInvoicesBtnWithDropdown from "./UpcomingInvoicesBtnWithDropdown";
 
 type Column = {
     id: string;
@@ -28,7 +28,7 @@ type Row = {
 type Props = {
     columns: Column[];
     rows: Row[];
-    onActionClick: TypeHandleClickAction;
+    onActionClick?: TypeHandleClickAction;
 };
 
 enum TypeActions {
@@ -42,7 +42,7 @@ enum Products {
     "Zeraki Timetable" = "Zeraki Timetable",
 }
 
-type TypeHandleClickAction = (type: TypeActions, row: Row) => void;
+type TypeHandleClickAction = (type: TypeActions, row: Row, route?:string, section?:string) => void;
 
 const DataTable = ({ columns, rows, onActionClick }: Props) => {
     const [page, setPage] = React.useState(0);
@@ -63,7 +63,7 @@ const DataTable = ({ columns, rows, onActionClick }: Props) => {
     const renderCellContent = (
         column: Column,
         value: string | number,
-        onActionClick: TypeHandleClickAction,
+        onActionClick: TypeHandleClickAction = () => true,
         row: Row
     ) => {
         if (column.id === "actions-collect") {
@@ -107,7 +107,7 @@ const DataTable = ({ columns, rows, onActionClick }: Props) => {
                 );
             });
         } else if (column.id === "actions-school-details") {
-            return <ButtonWithDropdown />;
+            return <UpcomingInvoicesBtnWithDropdown onActionClick={(section) => onActionClick(TypeActions.SchoolDetails, row, section)} />;
         } else {
             return column.format && typeof value === "number"
                 ? column.format(value)

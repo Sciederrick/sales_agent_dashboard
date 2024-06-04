@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import Header from "../components/TheHeader";
-import { AppContext } from "../contexts/AppContext";
-import DashboardLayout from "../layouts/DashboardLayout";
-import DataTableSchoolList from "../components/DataTableSchoolList";
+import Header from "./../../components/TheHeader";
+import { AppContext } from "./../../contexts/AppContext";
+import DashboardLayout from "./../../layouts/DashboardLayout";
+import DataTableSchoolList from "./../../components/DataTableSchoolList";
 
 const SchoolManagement = () => {
     const ctx = useContext(AppContext);

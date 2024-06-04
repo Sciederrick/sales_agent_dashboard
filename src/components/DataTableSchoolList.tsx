@@ -61,9 +61,10 @@ const SchoolList = () => {
     const [rows, setRows] = useState<Row[]>([]);
 
     const navigate = useNavigate();
-    const handleActionClick = (type: TypeActions) => {
+    const handleActionClick = (type: TypeActions, row: Row, section:string|undefined) => {
         if (type === TypeActions.SchoolDetails) {
-            navigate("/");
+            ctx?.onSetActiveSchool(row.id);
+            navigate(`/schools/${row.id}/${section}`);
         }
     };
 

@@ -64,7 +64,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                 </NavLink>
                 <NavLink
                     title="under construction"
-                    to="/manage"
+                    to="/schools"
                     className="flex items-center py-1 px-8 hover:bg-gray-100"
                     style={({ isActive }) => {
                         return isActive
@@ -79,7 +79,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                     <li className="flex w-full">
                         <NavLink
                             title="under construction"
-                            to="/manage"
+                            to="/schools"
                             className="py-1 px-8 w-full hover:bg-gray-100"
                             style={({ isActive }) => {
                                 return isActive
