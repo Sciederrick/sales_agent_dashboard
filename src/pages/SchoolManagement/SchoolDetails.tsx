@@ -13,6 +13,7 @@ import {
     MdOutlineCall,
 } from "react-icons/md";
 import DialogFormCollect from "../../components/DialogFormCollect";
+import DialogFormCollectionStatus from "../../components/DialogFormCollectionStatus";
 
 type TypeSchool = {
     id: number;
@@ -42,6 +43,36 @@ type Row = {
 enum TypeActions {
     Collect = "Collect",
     SchoolDetails = "SchoolDetails",
+    UpdateInvoiceStatus = "UpdateInvoiceStatus",
+}
+
+type TypeInvoice = {
+  id: number;
+  school_id: number;
+  invoice_number: string;
+  item: string;
+  creation_date: string;
+  due_date: string;
+  amount: number;
+  paid_amount: number;
+  balance: number;
+  status: string;
+  days_until_due: number;
+}
+
+interface TypeCollection {
+  id: number;
+  invoice_id: number;
+  school_id: number;
+  collection_number: string;
+  collection_date: string;
+  amount: number;
+  status: string;
+  payment_method: string;
+}
+
+interface TypeUICollection extends TypeCollection {
+    invoice_number?: string; 
 }
 
 const SchoolDetails = () => {
@@ -67,7 +98,7 @@ const SchoolDetails = () => {
         setCurrTab(newValue);
     };
 
-    const columns: Column[] = [
+    const columnsInvoice: Column[] = [
         { id: "invoice_number", label: "Invoice Number", minWidth: 170 },
         { id: "item", label: "Item", minWidth: 170 },
         { id: "creation_date", label: "Creation Date", minWidth: 170 },
@@ -108,6 +139,36 @@ const SchoolDetails = () => {
         },
     ];
 
+    const columnsCollection: Column[] = [
+        { id: "collection_number", label: "Collection Number", minWidth: 170 },
+        { id: "invoice_number", label: "Invoice Number", minWidth: 170 },
+        {
+            id: "amount",
+            label: "Amount",
+            minWidth: 170,
+        },
+        {
+            id: "status",
+            label: "Status",
+            minWidth: 150,
+        },
+        {
+            id: "payment_method",
+            label: "Payment Method",
+            minWidth: 120,
+        },
+        {
+            id: "collection_date",
+            label: "Collection Date",
+            minWidth: 120,
+        },
+        {
+            id: "actions-update-status",
+            label: "Actions",
+            minWidth: 170,
+        },
+    ];
+
     const [invoices, setInvoices] = useState<Row[]>([]);
 
     const fetchInvoices = async () => {
@@ -122,12 +183,12 @@ const SchoolDetails = () => {
             setInvoices(invoices);
         } catch (error) {
             ctx?.onNotif(
-                `Loading the school with ${id} failed with error: ${error}`
+                `Loading invoices for school with ${id} failed with error: ${error}`
             );
         }
     };
 
-    const ascUpcomingInvoices = useMemo(() => {
+    const ascInvoices = useMemo(() => {
         const sorted = [...invoices].sort((a, b) => {
             const dateA = new Date(a.due_date);
             const dateB = new Date(b.due_date);
@@ -136,17 +197,77 @@ const SchoolDetails = () => {
         return sorted;
     }, [invoices]);
 
+    
     const [showCollectionForm, setShowCollectionForm] = useState(false);
 
     const handleCloseCollectionForm = () => {
         setShowCollectionForm(false);
     };
 
-    const [activeRow, setActiveRow] = useState<Row>();
+    const [showCollectionStatusForm, setShowCollectionStatusForm] = useState(false);
 
-    const handleActionClick = (_type: TypeActions, row: Row) => {
+    const handleCloseCollectionStatusForm = () => {
+        setShowCollectionStatusForm(false);
+    };    
+
+    const [activeRow, setActiveRow] = useState<Row>();
+    
+    const handleActionClick = (type: TypeActions, row: Row) => {
         setActiveRow(row);
-        setShowCollectionForm(!showCollectionForm);
+        if (type === TypeActions.Collect) {
+            setShowCollectionForm(!showCollectionForm);
+        } else if (type === TypeActions.UpdateInvoiceStatus) {
+            setShowCollectionStatusForm(!showCollectionStatusForm);
+        }
+    };
+    
+    const [collections, setCollections] = useState<Row[]>([]);
+
+    const descCollections = useMemo(() => {
+        const sorted = [...collections].sort((a, b) => {
+            const dateA = new Date(a.due_date);
+            const dateB = new Date(b.due_date);
+            return dateB.getTime() - dateA.getTime();
+        });
+        return sorted;
+    }, [collections]);
+
+    const fetchCollections = async () => {
+        try {
+            const response = await fetch(
+                `${API_BASE_URL}/collections?school_id=${id}`
+            );
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            let collections = await response.json();
+            if (invoices.length > 0) {
+                collections = addInvoiceNumbersToCollections(collections, invoices as TypeInvoice[]);
+            } else {
+                fetchInvoices();
+                collections = addInvoiceNumbersToCollections(collections, invoices as TypeInvoice[]);
+            }
+            setCollections(collections);
+        } catch (error) {
+            ctx?.onNotif(
+                `Loading collections for school with ${id} failed with error: ${error}`
+            );
+        }
+    };
+
+    const addInvoiceNumbersToCollections = (
+        collections: TypeCollection[],
+        invoices: TypeInvoice[]
+    ): TypeUICollection[] => {
+        return collections.map((collection) => {
+            const invoice = invoices.find(
+                (inv) => inv.id === collection.invoice_id
+            );
+            return {
+                ...collection,
+                invoice_number: invoice ? invoice.invoice_number : undefined,
+            };
+        });
     };
 
     useEffect(() => {
@@ -169,9 +290,15 @@ const SchoolDetails = () => {
 
         if (
             (section === "invoices" && invoices.length === 0) ||
-            (currTab === 1 && invoices.length === 0)
-        )
+            (currTab === 0 && invoices.length === 0)
+        ) {
             fetchInvoices();
+        } else if (
+            (section === "collections" && collections.length === 0) ||
+            (currTab === 1 && collections.length === 0)
+        ) {
+            fetchCollections();
+        }
     }, [currTab]);
 
     return (
@@ -253,15 +380,15 @@ const SchoolDetails = () => {
                         <div className="container">
                             {currTab === 0 && (
                                 <DataTable
-                                    columns={columns}
-                                    rows={ascUpcomingInvoices ?? []}
+                                    columns={columnsInvoice}
+                                    rows={ascInvoices ?? []}
                                     onActionClick={handleActionClick}
                                 />
                             )}
                             {currTab === 1 && (
                                 <DataTable
-                                    columns={columns}
-                                    rows={ascUpcomingInvoices ?? []}
+                                    columns={columnsCollection}
+                                    rows={descCollections ?? []}
                                     onActionClick={handleActionClick}
                                 />
                             )}
@@ -273,6 +400,13 @@ const SchoolDetails = () => {
                         activeRow={activeRow}
                         showCollectionForm={showCollectionForm}
                         onCloseCollectionForm={handleCloseCollectionForm}
+                    />
+                )}
+                {activeRow && (
+                    <DialogFormCollectionStatus
+                        activeRow={activeRow}
+                        showCollectionStatusForm={showCollectionStatusForm}
+                        onCloseCollectionStatusForm={handleCloseCollectionStatusForm}
                     />
                 )}
             </main>

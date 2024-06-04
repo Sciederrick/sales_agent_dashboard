@@ -34,6 +34,7 @@ type Props = {
 enum TypeActions {
     Collect = "Collect",
     SchoolDetails = "SchoolDetails",
+    UpdateInvoiceStatus = "UpdateInvoiceStatus",
 }
 
 enum Products {
@@ -82,7 +83,7 @@ const DataTable = ({ columns, rows, onActionClick }: Props) => {
                     label={value}
                     variant="outlined"
                     size="small"
-                    color={value === "Pending" ? "default" : "primary"}
+                    color={value === "Pending" || value === "Bounced" || value === "Partial" ? "default" : "primary"}
                 />
             );
         } else if (column.id === "products") {
@@ -108,6 +109,18 @@ const DataTable = ({ columns, rows, onActionClick }: Props) => {
             });
         } else if (column.id === "actions-school-details") {
             return <UpcomingInvoicesBtnWithDropdown onActionClick={(section) => onActionClick(TypeActions.SchoolDetails, row, section)} />;
+        } else if (column.id === "actions-update-status") {
+            return (
+                <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() =>
+                        onActionClick(TypeActions.UpdateInvoiceStatus, row)
+                    }
+                >
+                    Update&nbsp;status
+                </Button>
+            );
         } else {
             return column.format && typeof value === "number"
                 ? column.format(value)
