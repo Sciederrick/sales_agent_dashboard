@@ -19,6 +19,7 @@ type Row = {
 enum TypeActions {
     Collect = "Collect",
     SchoolDetails = "SchoolDetails",
+    UpdateInvoiceStatus = "UpdateInvoiceStatus",
 }
 
 const SchoolList = () => {
