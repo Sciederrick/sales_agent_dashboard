@@ -55,6 +55,7 @@ type TypeUpcomingInvoices = {
 enum TypeActions {
     Collect = "Collect",
     SchoolDetails = "SchoolDetails",
+    UpdateInvoiceStatus = "UpdateInvoiceStatus"
 }
 
 const UpcomingInvoices = () => {

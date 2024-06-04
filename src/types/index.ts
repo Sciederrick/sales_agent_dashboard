@@ -25,6 +25,7 @@ export type TypeHandleClickAction = (type: TypeActions, row: Row) => void;
 export enum TypeActions {
     Collect = "Collect",
     SchoolDetails = "SchoolDetails",
+    UpdateInvoiceStatus = "UpdateInvoiceStatus"
 }
 
 export enum Products {
