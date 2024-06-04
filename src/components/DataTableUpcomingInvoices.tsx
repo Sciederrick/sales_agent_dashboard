@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import DataTable from "./DataTable";
 import { API_BASE_URL } from "../constants";
 import { AppContext } from "../contexts/AppContext";
-import DialogFormUpcomingInvoices from "./DialogFormUpcomingInvoices";
+import DialogFormCollect from "./DialogFormCollect";
 
 type Column = {
     id: string;
@@ -170,7 +170,7 @@ const UpcomingInvoices = () => {
                 rows={ascUpcomingInvoices ?? []}
                 onActionClick={handleActionClick}
             />
-            <DialogFormUpcomingInvoices activeRow={activeRow} showCollectionForm={showCollectionForm} onCloseCollectionForm={handleCloseCollectionForm}/>
+            <DialogFormCollect activeRow={activeRow} showCollectionForm={showCollectionForm} onCloseCollectionForm={handleCloseCollectionForm}/>
         </>
     );
 };

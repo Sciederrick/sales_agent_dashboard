@@ -19,12 +19,12 @@ const SchoolManagement = () => {
     return (
         <DashboardLayout>
             <Header
-                title="Schools Management"
+                title="School Management"
                 description="Organization, viewing, and manipulation of school-related data"
                 onToggleProfileSidebar={handleClickToggleProfileSideBar}
                 onToggleNav={handleClickToggleNav}
             />
-            <main className="pb-32 lg:pt-8">
+            <main className="pb-32 pt-4 lg:pt-8">
                 <div className="px-8 flex flex-col gap-4 lg:py-4 lg:px-12">
                     <HeaderDesc title="Schools" desc="List of schools with link to respective collections & invoices" />
                     <DataTableSchoolList />

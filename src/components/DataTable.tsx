@@ -42,7 +42,7 @@ enum Products {
     "Zeraki Timetable" = "Zeraki Timetable",
 }
 
-type TypeHandleClickAction = (type: TypeActions, row: Row, route?:string, section?:string) => void;
+type TypeHandleClickAction = (type: TypeActions, row: Row, section?:string) => void;
 
 const DataTable = ({ columns, rows, onActionClick }: Props) => {
     const [page, setPage] = React.useState(0);
@@ -63,7 +63,7 @@ const DataTable = ({ columns, rows, onActionClick }: Props) => {
     const renderCellContent = (
         column: Column,
         value: string | number,
-        onActionClick: TypeHandleClickAction = () => true,
+        onActionClick: TypeHandleClickAction = () => {},
         row: Row
     ) => {
         if (column.id === "actions-collect") {
