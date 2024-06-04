@@ -249,7 +249,7 @@ const SchoolDetails = () => {
                                 <Tab label="Collections" />
                             </Tabs>
                         </Box>
-                        <div className="w-full max-w-[1600px] overflow-scroll">
+                        <div className="container">
                             {currTab === 0 && (
                                 <DataTable
                                     columns={columns}
