@@ -146,6 +146,7 @@ const SchoolDetails = () => {
 
     const handleActionClick = (_type: TypeActions, row: Row) => {
         setActiveRow(row);
+        setShowCollectionForm(!showCollectionForm);
     };
 
     useEffect(() => {
@@ -254,6 +255,7 @@ const SchoolDetails = () => {
                                 <DataTable
                                     columns={columns}
                                     rows={ascUpcomingInvoices ?? []}
+                                    onActionClick={handleActionClick}
                                 />
                             )}
                             {currTab === 1 && (
