@@ -122,7 +122,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
             </nav>
             <main className="min-h-screen bg-[#F6F6F6] w-full">{children}</main>
             <aside
-                className={`min-h-screen absolute inset-0 bg-[#EAF6FC] ${
+                className={`z-10 min-h-screen absolute inset-0 bg-[#EAF6FC] ${
                     ctx?.showProfileSideBar
                         ? "block lg:w-[400px] lg:inset-auto lg:right-0 lg:inset-y-0"
                         : "hidden"

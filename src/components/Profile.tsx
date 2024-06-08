@@ -11,7 +11,7 @@ const Profile = () => {
     const ctx = useContext(AppContext);
     return (
         <>
-            <header className="pt-3 bg-[#FFF] px-4 pb-4 rounded-b-xl lg:rounded-none lg:rounded-l-3xl">
+            <header className="pt-3 bg-[#FFF] px-4 pb-4 rounded-b-xl lg:rounded-none">
                 <div className="flex justify-between items-start lg:bg-transparent">
                     <button
                         onClick={() => ctx?.onToggleProfileSideBar()}
