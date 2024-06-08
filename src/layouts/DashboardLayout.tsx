@@ -12,7 +12,6 @@ import logoIcon1 from "./../assets/logo-1.png";
 import logoIcon2 from "./../assets/logo-2.png";
 
 import Profile from "../components/Profile";
-import { Chip } from "@mui/material";
 
 type TypeLayoutProps = {
     children: React.ReactNode;
@@ -73,7 +72,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                     }}
                 >
                     <MdOutlineSchool />
-                    &nbsp; Schools
+                    &nbsp; School Management
                 </NavLink>
                 <ul className="pl-6 flex flex-col gap-4 text-sm">
                     <li className="flex w-full">
@@ -90,41 +89,13 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                             View Schools
                         </NavLink>
                     </li>
-                    <li className="flex w-full">
-                        <NavLink
-                            title="under construction"
-                            to="/"
-                            className="py-1 px-8 w-full cursor-not-allowed opacity-40 flex hover:bg-gray-100"
-                        >
-                            Invoices&nbsp;&nbsp;
-                            <Chip
-                                size="small"
-                                label="coming soon"
-                                color="primary"
-                            />
-                        </NavLink>
-                    </li>
-                    <li className="flex w-full">
-                        <NavLink
-                            title="under construction"
-                            to="/"
-                            className="py-1 px-8 w-full cursor-not-allowed opacity-40 flex hover:bg-gray-100"
-                        >
-                            Collections&nbsp;&nbsp;
-                            <Chip
-                                size="small"
-                                label="coming soon"
-                                color="primary"
-                            />
-                        </NavLink>
-                    </li>
                 </ul>
             </nav>
             <main className="min-h-screen bg-[#F6F6F6] w-full">{children}</main>
             <aside
                 className={`z-10 min-h-screen absolute inset-0 bg-[#EAF6FC] ${
                     ctx?.showProfileSideBar
-                        ? "block lg:w-[400px] lg:inset-auto lg:right-0 lg:inset-y-0"
+                        ? "block lg:w-[400px] lg:inset-auto lg:right-0 lg:inset-y-0 lg:shadow"
                         : "hidden"
                 }`}
             >
