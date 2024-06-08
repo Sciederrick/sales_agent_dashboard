@@ -95,7 +95,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
             <aside
                 className={`z-10 min-h-screen absolute inset-0 bg-[#EAF6FC] ${
                     ctx?.showProfileSideBar
-                        ? "block lg:w-[400px] lg:inset-auto lg:right-0 lg:inset-y-0 lg:shadow"
+                        ? "block lg:w-[400px] lg:fixed lg:inset-auto lg:right-0 lg:inset-y-0 lg:shadow"
                         : "hidden"
                 }`}
             >
