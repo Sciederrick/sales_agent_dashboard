@@ -25,7 +25,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
     return (
         <div className="relative flex justify-between bg-[#FFF]">
             <nav
-                className={`min-h-screen min-w-[250px] py-4 z-20 absolute inset-y-0 left-0 flex flex-col gap-4 bg-[#FFF] w-2/3 lg:w-auto lg:static ${navTransitionClasses} lg:translate-x-0`}
+                className={`min-h-screen min-w-[250px] py-4 z-20 absolute inset-y-0 left-0 flex flex-col gap-4 bg-[#FFF] w-2/3 lg:w-auto lg:fixed ${navTransitionClasses} lg:translate-x-0`}
             >
                 <NavLink to="/" className="pb-6 px-8">
                     {ctx?.showMobileNav ? (
@@ -91,7 +91,7 @@ const DashboardLayout: React.FC<TypeLayoutProps> = ({ children }) => {
                     </li>
                 </ul>
             </nav>
-            <main className="min-h-screen bg-[#F6F6F6] w-full">{children}</main>
+            <main className="min-h-screen bg-[#F6F6F6] w-full lg:pl-[250px]">{children}</main>
             <aside
                 className={`z-10 min-h-screen absolute inset-0 bg-[#EAF6FC] ${
                     ctx?.showProfileSideBar
