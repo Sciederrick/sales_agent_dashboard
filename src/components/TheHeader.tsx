@@ -19,7 +19,7 @@ const Header = ({
     onToggleNav,
 }: HeaderProps) => {
     return (
-        <header className="relative flex justify-between items-start pt-3 bg-[#FFF] px-4 lg:bg-transparent lg:justify-end lg:border-b lg:pb-4">
+        <header className="relative flex justify-between items-start pt-3 bg-[#FFF] px-4 sticky top-0 bg-white/30 backdrop-blur-md z-10 lg:bg-transparent lg:justify-end lg:border-b lg:pb-4">
             <Link to="/" className="pb-6 lg:hidden">
                 <img src={logoIcon1} alt="company logo" className="h-8" />
             </Link>
