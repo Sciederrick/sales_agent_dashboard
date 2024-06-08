@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import Header from "../../components/TheHeader";
 import { useContext, useEffect, useMemo, useState } from "react";
@@ -305,17 +305,19 @@ const SchoolDetails = () => {
         }
     };
 
-    const switchToSectionTab = () => {
+    const switchToTabForCurrSection = () => {
         setCurrTab(section === "invoices" ? 0 : 1);
     };
 
+    const navigate = useNavigate();
     useEffect(() => {
         fetchTabData();
-        fetchSchool();
+        if (currTab === 2) navigate("/schools");
     }, [currTab]);
-
+        
     useEffect(() => {
-        switchToSectionTab();
+        fetchSchool();
+        switchToTabForCurrSection();
     }, []);
 
     return (
@@ -392,6 +394,7 @@ const SchoolDetails = () => {
                             >
                                 <Tab label="Invoices" />
                                 <Tab label="Collections" />
+                                <Tab label="Go Back" />
                             </Tabs>
                         </Box>
                         <div className="container">
