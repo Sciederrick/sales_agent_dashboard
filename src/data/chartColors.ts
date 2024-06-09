@@ -44,4 +44,4 @@ const allColors = [
 export const barGraphColors = [allColors[5], allColors[18], allColors[29]];
 export const barGraphAccents = [allColors[6], allColors[19], allColors[30]];
 
-export const pieChartColors = [allColors[29], allColors[18]];
+export const pieChartColors = [allColors[28], allColors[18]];
