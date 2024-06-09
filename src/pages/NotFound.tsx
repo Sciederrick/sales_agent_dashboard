@@ -10,7 +10,7 @@ function NotFound() {
                     removed, had its name changed or its temporarily
                     unavailable.
                 </p>
-                <Link className="" to="/">
+                <Link className="underline text-blue-500" to="/">
                     HOME PAGE
                 </Link>
             </div>
