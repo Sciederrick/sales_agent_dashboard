@@ -2,6 +2,7 @@ import { ResponsiveBar } from "@nivo/bar";
 import { useContext, useEffect, useState } from "react";
 import { API_BASE_URL } from "../constants";
 import { AppContext } from "../contexts/AppContext";
+import { barGraphAccents, barGraphColors } from "../data/chartColors";
 
 type TypeSchool = {
     id: number;
@@ -16,13 +17,6 @@ type TypeSchool = {
     balance: number;
 };
 
-// type TypeSchoolSignupDistribution = {
-//     month: string;
-//     Primary: number;
-//     Secondary: number;
-//     IGCSE: number;
-// }
-
 type TypeSchoolSignupDistribution = {
     product: string;
     Primary: number;
@@ -30,55 +24,10 @@ type TypeSchoolSignupDistribution = {
     IGCSE: number;
 };
 
-// type TypeStringNumObj = { [key: string]: number };
-
 const BarGraph = () => {
     const ctx = useContext(AppContext);
 
     const [data, setData] = useState<TypeSchoolSignupDistribution[]>([]);
-
-    // const generateBarData = (schools:TypeSchool[]) => {
-    //     const currentDate = new Date();
-    //     const currentYear = currentDate.getFullYear();
-
-    //     const groupedData: {[key:string]:TypeStringNumObj} = {};
-
-    //     // Initialize groupedData with default values for the current year
-    //     schools.forEach((school) => {
-    //         const registrationYear = new Date(school.registration_date).getFullYear();
-    //         if (registrationYear === currentYear) {
-    //             const month = new Date(school.registration_date).toLocaleString(
-    //                 "default",
-    //                 { month: "long" }
-    //             );
-    //             if (!groupedData[month]) {
-    //                 groupedData[month] = {
-    //                     Primary: 0,
-    //                     Secondary: 0,
-    //                     IGCSE: 0,
-    //                 };
-    //             }
-    //         }
-    //     });
-
-    //     // Group data by month and type for the current year
-    //     schools.forEach((school) => {
-    //         const registrationYear = new Date(school.registration_date).getFullYear();
-    //         if (registrationYear === currentYear) {
-    //             const month = new Date(school.registration_date).toLocaleString(
-    //                 "default",
-    //                 { month: "long" }
-    //             );
-    //             groupedData[month][school.type] += 1;
-    //         }
-    //     });
-
-    //     // Convert to array of objects
-    //     return Object.entries(groupedData).map(([month, types]) => ({
-    //         month,
-    //         ...types,
-    //     }));
-    // }
 
     const generateBarData = (schools: TypeSchool[]) => {
         const zerakiAnalytics: TypeSchoolSignupDistribution = {
@@ -140,21 +89,22 @@ const BarGraph = () => {
     }, []);
     return (
         <ResponsiveBar
+            groupMode="grouped"
             data={data}
             keys={["Primary", "Secondary", "IGCSE"]}
             indexBy="product"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}
-            groupMode="grouped"
             valueScale={{ type: "linear" }}
             indexScale={{ type: "band", round: true }}
-            colors={{ scheme: "nivo" }}
+            // colors={{ scheme: "nivo" }}
+            colors={barGraphColors}
             defs={[
                 {
                     id: "dots",
                     type: "patternDots",
                     background: "inherit",
-                    color: "#38bcb2",
+                    color: barGraphAccents[0],
                     size: 4,
                     padding: 1,
                     stagger: true,
@@ -163,7 +113,16 @@ const BarGraph = () => {
                     id: "lines",
                     type: "patternLines",
                     background: "inherit",
-                    color: "#eed312",
+                    color: barGraphAccents[1],
+                    rotation: -45,
+                    lineWidth: 6,
+                    spacing: 10,
+                },
+                {
+                    id: "squares",
+                    type: "patternSquares",
+                    background: "inherit",
+                    color: barGraphAccents[2],
                     rotation: -45,
                     lineWidth: 6,
                     spacing: 10,
@@ -186,7 +145,7 @@ const BarGraph = () => {
                     match: {
                         id: "IGCSE",
                     },
-                    id: "lines",
+                    id: "squares",
                 },
             ]}
             borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
