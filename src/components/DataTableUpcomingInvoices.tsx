@@ -64,7 +64,7 @@ const UpcomingInvoices = () => {
         { id: "invoice_number", label: "Invoice Number", minWidth: 170 },
         { id: "school_name", label: "School Name", minWidth: 100 },
         {
-            id: "amount_due",
+            id: "balance",
             label: "Amount Due",
             minWidth: 170,
         },
